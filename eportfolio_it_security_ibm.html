@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Portfolio – Sriraam Nagendra Rau</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,sans-serif;background:linear-gradient(180deg,#f0f5fb 0%,#f7f5ef 100%);color:#1a1a1a;min-height:100vh}
+
+  .topnav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);border-bottom:1px solid #e0e0e0;padding:10px 1.5rem;display:flex;align-items:center;gap:10px;overflow-x:auto;white-space:nowrap;justify-content:center}
+  .tab-btn{font-size:13px;font-weight:600;color:#185FA5;padding:10px 20px;text-decoration:none;border-radius:24px;border:1.5px solid #cfe1f5;background:#fff;transition:all .2s;flex-shrink:0;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .tab-btn:hover{background:#E6F1FB;transform:translateY(-1px);box-shadow:0 3px 8px rgba(24,95,165,.15)}
+  .tab-btn.active{background:linear-gradient(135deg,#185FA5,#2E8BC9);color:#fff;border-color:transparent;box-shadow:0 3px 10px rgba(24,95,165,.3)}
+
+  .port{max-width:860px;margin:0 auto;padding:2rem 1.5rem}
+  .hero{padding:1.75rem 1.75rem;margin-bottom:2.5rem;background:linear-gradient(135deg,#185FA5 0%,#2E8BC9 55%,#4FB8C9 100%);border-radius:18px;color:#fff;box-shadow:0 8px 24px rgba(24,95,165,.25)}
+  .hero-name{font-size:28px;font-weight:700;color:#fff;margin-bottom:4px;letter-spacing:-0.01em}
+  .hero-sub{font-size:14px;color:#E6F1FB;margin-bottom:4px}
+  .hero-contact{font-size:13px;color:#D5ECFF;margin-bottom:12px}
+  .badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .badge{font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.35)}
+  .b-blue{background:rgba(255,255,255,.22)}
+  .b-teal{background:rgba(255,255,255,.22)}
+  .b-amber{background:rgba(255,255,255,.22)}
+
+  .btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;border:none;cursor:pointer;text-decoration:none;transition:opacity .15s,transform .1s}
+  .btn:active{transform:scale(0.97)}
+  .btn-primary{background:#185FA5;color:#fff}
+  .btn-primary:hover{opacity:.88}
+  .btn-outline{background:#fff;color:#185FA5;border:1px solid #185FA5}
+  .btn-outline:hover{background:#E6F1FB}
+  .btn-sm{font-size:12px;padding:5px 10px}
+  .btn-ghost{background:transparent;color:#555;border:1px solid #ddd}
+  .btn-ghost:hover{background:#f0f0ed;color:#1a1a1a}
+  .btn-green{background:#0F6E56;color:#fff}
+  .btn-green:hover{opacity:.88}
+  .btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+
+  .section{margin-bottom:2.5rem}
+  .sec-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:8px;border-bottom:1px solid #ddd}
+  .sec-num{font-size:13px;font-weight:700;color:#fff;background:linear-gradient(135deg,#185FA5,#2E8BC9);padding:4px 12px;border-radius:20px;border:none}
+  .sec-title{font-size:19px;font-weight:700;color:#1a1a1a}
+  .card{background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
+  .card-title{font-size:13px;font-weight:500;color:#555;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:8px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+  p{font-size:14px;line-height:1.7;color:#1a1a1a;margin-bottom:8px}
+  p:last-child{margin-bottom:0}
+  ul{padding-left:1.2rem;margin-bottom:0}
+  li{font-size:14px;line-height:1.8;color:#1a1a1a}
+  .skill-bar-wrap{margin:6px 0}
+  .skill-label{display:flex;justify-content:space-between;font-size:13px;color:#555;margin-bottom:3px}
+  .skill-track{height:6px;background:#f0f0ed;border-radius:6px;overflow:hidden}
+  .skill-fill{height:100%;border-radius:6px;width:0;transition:width 1s ease}
+  .gap-tag{font-size:12px;padding:2px 8px;border-radius:20px;margin-right:4px;margin-bottom:4px;display:inline-block}
+  .gap-have{background:#E1F5EE;color:#085041}
+  .gap-need{background:#FCEBEB;color:#791F1F}
+  .timeline-item{display:flex;gap:1rem;margin-bottom:1rem}
+  .tl-dot-wrap{display:flex;flex-direction:column;align-items:center}
+  .tl-dot{width:12px;height:12px;border-radius:50%;margin-top:3px;flex-shrink:0}
+  .tl-line{width:2px;flex:1;background:#e0e0e0;margin-top:4px}
+  .tl-content{flex:1;padding-bottom:1rem}
+  .tl-period{font-size:11px;font-weight:500;color:#555;margin-bottom:2px}
+  .tl-goal{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:4px}
+  .tl-detail{font-size:13px;color:#555;line-height:1.6}
+  .evidence-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem}
+  .ev-card{background:#f0f0ed;border-radius:8px;padding:1rem;border:1px solid #e0e0e0;display:flex;flex-direction:column}
+  .ev-title{font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:4px}
+  .ev-desc{font-size:12px;color:#555;line-height:1.5;flex:1}
+  .ev-footer{display:flex;align-items:center;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:6px}
+  .ev-status{font-size:11px;padding:2px 8px;border-radius:20px;display:inline-block}
+  .status-done{background:#E1F5EE;color:#085041}
+  .status-ongoing{background:#FAEEDA;color:#633806}
+  .status-planned{background:#E6F1FB;color:#0C447C}
+  .reflect-q{font-size:13px;font-weight:500;color:#555;margin-bottom:4px;margin-top:14px}
+  .reflect-a{font-size:14px;line-height:1.7;color:#1a1a1a}
+  .ibm-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 1.25rem;background:#E6F1FB;border-radius:8px;margin-bottom:1rem;flex-wrap:wrap}
+  .ibm-left{display:flex;align-items:center;gap:10px}
+  .ibm-logo{font-size:18px;font-weight:500;color:#0C447C;letter-spacing:0.08em}
+  .ibm-role{font-size:13px;color:#185FA5}
+  .divider{height:1px;background:#e0e0e0;margin:2rem 0}
+  .footer{text-align:center;padding:1.5rem 0 0.5rem;font-size:12px;color:#888}
+  .cert-btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .exp-item{margin-bottom:1rem}
+  .exp-title{font-size:14px;font-weight:500;color:#1a1a1a}
+  .exp-period{font-size:12px;color:#555;margin-bottom:4px}
+
+  .ev-image{width:100%;border-radius:8px;margin-top:8px;display:block;border:1px solid #e0e0e0}
+  .ev-image-placeholder{width:100%;aspect-ratio:4/3;border:2px dashed #cfcfcf;border-radius:8px;margin-top:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#999;font-size:12px;padding:0.5rem;background:#fafafa}
+  .ev-image-placeholder .icon{font-size:22px;margin-bottom:6px}
+  .profile-photo{width:140px;height:140px;border-radius:50%;object-fit:cover;border:3px solid #fff;flex-shrink:0;box-shadow:0 2px 10px rgba(0,0,0,.15);cursor:pointer;transition:transform .2s}
+  .profile-photo:hover{transform:scale(1.04)}
+  .lightbox-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:1000;align-items:center;justify-content:center;cursor:zoom-out}
+  .lightbox-overlay.active{display:flex}
+  .lightbox-overlay img{max-width:90%;max-height:90%;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.4);animation:lbZoom .25s ease}
+  @keyframes lbZoom{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+
+  .contact-popup{display:none;position:absolute;top:calc(100% + 8px);left:0;background:#fff;border:1px solid #e0e0e0;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,.12);padding:12px 16px;min-width:240px;z-index:50}
+  .contact-popup.active{display:block;animation:lbZoom .15s ease}
+  .contact-row{font-size:13px;color:#1a1a1a;padding:4px 0;white-space:nowrap}
+  .hero-flex{display:flex;gap:1rem;align-items:flex-start}
+  .tab-content{display:none;animation:fadeIn .35s ease}
+  .tab-content.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .card{transition:transform .15s,box-shadow .15s}
+  .card:hover{box-shadow:0 4px 14px rgba(24,95,165,.08)}
+  #scrolltop{position:fixed;bottom:24px;right:24px;background:#185FA5;color:#fff;border:none;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15);transition:opacity .2s}
+  #scrolltop:hover{opacity:.85}
+
+  @media(max-width:520px){.row2,.row3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="topnav" id="topnav">
+  <button class="tab-btn active" data-tab="career" onclick="showTab('career')">&#127919; A — Career</button>
+  <button class="tab-btn" data-tab="skills" onclick="showTab('skills')">&#9889; B — Skills</button>
+  <button class="tab-btn" data-tab="plan" onclick="showTab('plan')">&#128202; C — Plan</button>
+  <button class="tab-btn" data-tab="evidence" onclick="showTab('evidence')">&#127942; D — Evidence</button>
+  <button class="tab-btn" data-tab="reflection" onclick="showTab('reflection')">&#128172; E — Reflection</button>
+</nav>
+
+<div class="port">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-flex">
+      <img class="profile-photo" src="images/phto.png" alt="Profile photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" onclick="openLightbox(this.src)">
+      <div class="profile-photo" style="display:none;background:linear-gradient(135deg,#fff,#E6F1FB);align-items:center;justify-content:center;font-size:40px;color:#185FA5;font-weight:700">SN</div>
+      <div>
+        <div class="hero-name">Sriraam Nagendra Rau</div>
+        <div class="hero-sub">Bachelor of Computer Science (Computer Network Security) with Honours · Universiti Sultan Zainal Abidin (2023–2027)</div>
+      </div>
+    </div>
+    <div class="badge-row" style="margin-top:12px">
+      <span class="badge b-blue">IT Support with Security Role</span>
+      <span class="badge b-teal">CSA30203 E-Portfolio</span>
+      <span class="badge b-amber">Dream Company: IBM</span>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="window.print()">&#128438; Download / Print PDF</button>
+      <div style="position:relative;display:inline-block">
+        <button class="btn btn-outline" onclick="toggleContact()">&#9993; Contact Me</button>
+        <div id="contact-popup" class="contact-popup">
+          <div class="contact-row">&#128205; Bandar Puchong Jaya, Selangor</div>
+          <div class="contact-row">&#128222; +6019-378 6057</div>
+          <div class="contact-row">&#9993;&#65039; sriraamnagen@gmail.com</div>
+        </div>
+      </div>
+      <a class="btn btn-ghost" href="https://linkedin.com" target="_blank">&#128279; LinkedIn</a>
+    </div>
+  </div>
+
+  <!-- SECTION A -->
+  <div class="section tab-content active" id="career">
+    <div class="sec-header">
+      <span class="sec-num">A</span>
+      <span class="sec-title">Career exploration</span>
+    </div>
+    <div class="card">
+      <div class="card-title">Role overview — IT Support Specialist (Security-focused)</div>
+      <p>I have chosen IT Support with a Security Role as my target career path because it builds directly on my existing service operations experience at Telstra Interims IBM and DHL Express, while letting me apply what I am studying in my Computer Network Security degree. An IT Support Specialist with a security focus acts as the first line of defence for an organisation's IT infrastructure — handling troubleshooting, user account management, system monitoring, and security policy enforcement. This role is the most natural bridge between my current operational background and my target field of cybersecurity.</p>
+      <div class="btn-row">
+        <a class="btn btn-outline btn-sm" href="https://www.jobstreet.com.my/en/job-search/it-support-security-jobs/" target="_blank">&#128269; View IT Support Jobs (JobStreet)</a>
+        <a class="btn btn-ghost btn-sm" href="https://www.comptia.org/blog/what-is-it-support" target="_blank">&#128218; CompTIA Role Guide</a>
+      </div>
+    </div>
+    <div class="row3">
+      <div class="card">
+        <div class="card-title">Key responsibilities</div>
+        <ul>
+          <li>Troubleshoot hardware, software, and network issues</li>
+          <li>Set up and configure user accounts and access controls</li>
+          <li>Monitor and respond to security alerts (endpoint protection)</li>
+          <li>Enforce security policies and user awareness</li>
+          <li>Maintain patch management and system updates</li>
+          <li>Document incidents and escalate when needed (similar to my SIEBEL/MICA ticketing experience at IBM)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Required skills</div>
+        <ul>
+          <li>Windows &amp; Linux OS administration</li>
+          <li>Networking fundamentals (TCP/IP, DNS, DHCP)</li>
+          <li>Active Directory / identity management</li>
+          <li>Basic scripting (Bash, Python)</li>
+          <li>Firewalls and intrusion detection (UFW, Snort)</li>
+          <li>Ticketing &amp; incident management systems</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Relevance to modern cybersecurity</div>
+        <p>My background already overlaps with this field: I worked inside an IBM-managed service operations process (Telstra Interims IBM) handling order lifecycle management and ticketing, and I built an intrusion detection system using Snort and Wireshark for my diploma. IT support with security is the realistic entry point that connects my operational discipline to the technical security skills I am building in my degree.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION B -->
+  <div class="section tab-content" id="skills">
+    <div class="sec-header">
+      <span class="sec-num">B</span>
+      <span class="sec-title">Personal skills assessment</span>
+    </div>
+    <div class="row2">
+      <div class="card">
+        <div class="card-title">Technical skills — current level</div>
+        <div class="skill-bar-wrap">
+          <div class="skill-label"><span>IT Support &amp; Help Desk</span><span>88%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="88%" style="background:#185FA5"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-label"><span>Network troubleshooting</span><span>83%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="83%" style="background:#185FA5"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-label"><span>Linux (Kali / Ubuntu)</span><span>82%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="82%" style="background:#185FA5"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-label"><span>Wireshark / traffic analysis</span><span>85%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="85%" style="background:#185FA5"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-label"><span>Firewall (UFW) &amp; Snort IDS</span><span>81%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="81%" style="background:#185FA5"></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Soft skills — current level</div>
+        <div class="skill-bar-wrap">
+          <div class="skill-label"><span>Customer / user support</span><span>95%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="95%" style="background:#1D9E75"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-label"><span>Process &amp; workflow coordination</span><span>93%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="93%" style="background:#1D9E75"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-label"><span>Attention to detail</span><span>94%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="94%" style="background:#1D9E75"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-label"><span>Cross-team communication</span><span>91%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="91%" style="background:#1D9E75"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-label"><span>Problem solving under deadline pressure</span><span>92%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="92%" style="background:#1D9E75"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-label"><span>Technical documentation</span><span>90%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="90%" style="background:#1D9E75"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Skills gap analysis — current vs industry requirement</div>
+      <p style="margin-bottom:10px">Skills I already have that match the role:</p>
+      <span class="gap-tag gap-have">IT Support / Help Desk</span>
+      <span class="gap-tag gap-have">Ticketing &amp; incident management (SIEBEL, MICA)</span>
+      <span class="gap-tag gap-have">Wireshark traffic analysis</span>
+      <span class="gap-tag gap-have">Kali Linux / Ubuntu</span>
+      <span class="gap-tag gap-have">Snort IDS configuration</span>
+      <span class="gap-tag gap-have">UFW firewall management</span>
+      <span class="gap-tag gap-have">Customer service &amp; coordination</span>
+      <p style="margin-top:12px;margin-bottom:10px">Areas I need to develop further:</p>
+      <span class="gap-tag gap-need">Active Directory administration</span>
+      <span class="gap-tag gap-need">Cloud security basics (AWS/Azure)</span>
+      <span class="gap-tag gap-need">Python automation (beyond basics)</span>
+      <span class="gap-tag gap-need">Industry certifications (Security+, CCNA)</span>
+      <span class="gap-tag gap-need">SIEM tools (e.g. Splunk, IBM QRadar)</span>
+    </div>
+  </div>
+
+  <!-- SECTION C -->
+  <div class="section tab-content" id="plan">
+    <div class="sec-header">
+      <span class="sec-num">C</span>
+      <span class="sec-title">Career development plan</span>
+    </div>
+    <div class="card" style="margin-bottom:1.5rem">
+      <div class="card-title">Target certifications &amp; tools</div>
+      <div class="row3" style="margin-top:8px">
+        <div>
+          <p style="font-weight:500;font-size:13px;color:#185FA5;margin-bottom:4px">Certifications</p>
+          <ul>
+            <li>Cybersecurity Essentials (already obtained)</li>
+            <li>CompTIA Security+ (Year 1–2)</li>
+            <li>CCNA (Year 2)</li>
+            <li>AWS Cloud Practitioner (Year 2–3)</li>
+            <li>IBM Cybersecurity Analyst Professional Cert (Year 3)</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-weight:500;font-size:13px;color:#1D9E75;margin-bottom:4px">Tools to deepen</p>
+          <ul>
+            <li>Wireshark (advanced filters)</li>
+            <li>Snort (custom rule writing)</li>
+            <li>VMware (lab environments)</li>
+            <li>Active Directory</li>
+            <li>Splunk / IBM QRadar (SIEM)</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-weight:500;font-size:13px;color:#854F0B;margin-bottom:4px">Languages &amp; platforms</p>
+          <ul>
+            <li>Bash shell scripting (build on diploma project)</li>
+            <li>Python (automation &amp; scripting)</li>
+            <li>Linux server administration</li>
+            <li>Firebase (from washing machine scheduler project)</li>
+            <li>GitHub (portfolio &amp; project hosting)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cert-btn-row">
+        <a class="btn btn-outline btn-sm" href="https://www.comptia.org/certifications/security" target="_blank">&#127891; CompTIA Security+</a>
+        <a class="btn btn-outline btn-sm" href="https://www.cisco.com/c/en/us/training-events/training-certifications/certifications/associate/ccna.html" target="_blank">&#127891; CCNA</a>
+        <a class="btn btn-outline btn-sm" href="https://aws.amazon.com/certification/certified-cloud-practitioner/" target="_blank">&#127891; AWS Cloud Practitioner</a>
+        <a class="btn btn-outline btn-sm" href="https://www.coursera.org/professional-certificates/ibm-cybersecurity-analyst" target="_blank">&#127891; IBM Cybersecurity Analyst</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Career timeline</div>
+      <div style="margin-top:8px">
+        <div class="timeline-item">
+          <div class="tl-dot-wrap">
+            <div class="tl-dot" style="background:#185FA5"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-content">
+            <div class="tl-period">Now — during degree (2026–2027)</div>
+            <div class="tl-goal">Build security depth alongside studies</div>
+            <div class="tl-detail">Complete CSA30203 and related modules, study for CompTIA Security+, expand the intrusion detection project (Snort + Wireshark + UFW) into a portfolio piece on GitHub, continue practising on Kali Linux in VMware labs.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-dot-wrap">
+            <div class="tl-dot" style="background:#185FA5"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-content">
+            <div class="tl-period">2027 — Graduation</div>
+            <div class="tl-goal">Entry role — IT Support Analyst with Security focus</div>
+            <div class="tl-detail">Leverage my Telstra Interims IBM operations experience plus Security+ certification to land an entry-level IT support or junior SOC support role, ideally with an MNC that has structured graduate programmes (e.g. IBM, Telekom Malaysia, MIMOS).</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-dot-wrap">
+            <div class="tl-dot" style="background:#1D9E75"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-content">
+            <div class="tl-period">2 years post-graduation</div>
+            <div class="tl-goal">Junior Security Analyst / SOC Analyst</div>
+            <div class="tl-detail">Obtain CCNA and AWS Cloud Practitioner. Move from IT support into a dedicated security monitoring role, gaining hands-on SIEM experience (Splunk/QRadar) and incident response exposure.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-dot-wrap">
+            <div class="tl-dot" style="background:#854F0B"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-content">
+            <div class="tl-period">5 years post-graduation</div>
+            <div class="tl-goal">Goal — Network Security Analyst / Cloud Security Engineer at IBM</div>
+            <div class="tl-detail">With certifications (Security+, CCNA, AWS, IBM Cybersecurity Analyst) and 3+ years of hands-on security operations experience, target a Network Security Analyst or Cloud Security Engineer position at IBM, building on my earlier connection to IBM through the Telstra Interims engagement.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION D -->
+  <div class="section tab-content" id="evidence">
+    <div class="sec-header">
+      <span class="sec-num">D</span>
+      <span class="sec-title">Evidence of learning</span>
+    </div>
+
+    <div class="card" style="margin-bottom:1.5rem">
+      <div class="card-title">Education</div>
+      <div class="exp-item">
+        <div class="exp-title">Bachelor of Computer Science (Computer Network Security) with Honours</div>
+        <div class="exp-period">Universiti Sultan Zainal Abidin · 2023 – 2027</div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-title">Diploma in Information Technology</div>
+        <div class="exp-period">Polytechnic Muadzam Shah, Pahang · 2018 – 2021</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:1.5rem">
+      <div class="card-title">Work experience (relevant to IT support &amp; security)</div>
+      <div class="exp-item">
+        <div class="exp-title">Service Coordinator (Level 1) — Telstra Interims IBM</div>
+        <div class="exp-period">Aug 2022 – Sept 2023</div>
+        <ul>
+          <li>Activated and managed service orders in the SIEBEL system, ensuring accurate data entry and workflow execution</li>
+          <li>Monitored order progress using the MICA system to ensure service delivery efficiency</li>
+          <li>Processed end-to-end order lifecycles (0261Q to 0300Q) with high attention to detail — directly comparable to ticket/incident lifecycle management in IT support</li>
+        </ul>
+      </div>
+      <div class="exp-item">
+        <div class="exp-title">Logistic Coordinator — DHL Express</div>
+        <div class="exp-period">Nov 2017 – Dec 2018</div>
+        <ul>
+          <li>Coordinated end-to-end operations between warehouse, transport, and customer service teams — builds the cross-team coordination skills needed in IT support escalation</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="evidence-grid">
+      <div class="ev-card">
+        <div class="ev-title">Diploma in Information Technology</div>
+        <div class="ev-desc">Diploma certificate from Polytechnic Muadzam Shah, Pahang (2018–2021) — the foundation that led into my Bachelor's degree in Computer Network Security.</div>
+        <div class="ev-image-placeholder" onclick="this.outerHTML='&lt;img class=&quot;ev-image&quot; src=&quot;images/diploma-cert.png&quot; alt=&quot;Diploma certificate&quot;&gt;'">
+          <div class="icon">&#128196;</div>
+          Replace this box with:<br><code>images/diploma-cert.png</code>
+        </div>
+        <div class="ev-footer">
+          <span class="ev-status status-done">Completed</span>
+        </div>
+      </div>
+      <div class="ev-card">
+        <div class="ev-title">Automated Intrusion Detection &amp; Response System</div>
+        <div class="ev-desc">Built using Snort, Wireshark, UFW Firewall, Kali Linux, and Ubuntu to detect and automatically block simulated attacks (port scanning, ICMP flood, UDP scanning, SYN flood). Skills gained: network security monitoring, Snort rule development, traffic analysis, firewall management, Bash scripting.</div>
+        <div class="ev-image-placeholder" onclick="this.outerHTML='&lt;img class=&quot;ev-image&quot; src=&quot;images/ids-project.png&quot; alt=&quot;IDS project screenshot&quot;&gt;'">
+          <div class="icon">&#128247;</div>
+          Replace this box with:<br><code>images/ids-project.png</code>
+        </div>
+        <div class="ev-footer">
+          <span class="ev-status status-done">Completed</span>
+          <a class="btn btn-green btn-sm" href="https://github.com" target="_blank">&#128279; GitHub</a>
+        </div>
+      </div>
+      <div class="ev-card">
+        <div class="ev-title">Washing Machine Scheduler (Diploma Project)</div>
+        <div class="ev-desc">Mobile app built with Firebase letting students view and update washing machine availability in real time. Skills gained: Firebase, mobile app development, database management.</div>
+        <div class="ev-image-placeholder" onclick="this.outerHTML='&lt;img class=&quot;ev-image&quot; src=&quot;images/washing-app.png&quot; alt=&quot;Washing machine app screenshot&quot;&gt;'">
+          <div class="icon">&#128247;</div>
+          Replace this box with:<br><code>images/washing-app.png</code>
+        </div>
+        <div class="ev-footer">
+          <span class="ev-status status-done">Completed</span>
+          <a class="btn btn-green btn-sm" href="https://github.com" target="_blank">&#128279; GitHub</a>
+        </div>
+      </div>
+      <div class="ev-card">
+        <div class="ev-title">Cybersecurity Essentials Certification</div>
+        <div class="ev-desc">Foundational cybersecurity certification covering core security concepts, threats, and defence principles.</div>
+        <div class="ev-image-placeholder" onclick="this.outerHTML='&lt;img class=&quot;ev-image&quot; src=&quot;images/cybersecurity-essentials-cert.png&quot; alt=&quot;Cybersecurity Essentials certificate&quot;&gt;'">
+          <div class="icon">&#128196;</div>
+          Replace this box with:<br><code>images/cybersecurity-essentials-cert.png</code>
+        </div>
+        <div class="ev-footer">
+          <span class="ev-status status-done">Completed</span>
+        </div>
+      </div>
+      <div class="ev-card">
+        <div class="ev-title">Dean's List Award</div>
+        <div class="ev-desc">Recognised for academic excellence during studies — reflects consistency and strong academic performance.</div>
+        <div class="ev-image-placeholder" onclick="this.outerHTML='&lt;img class=&quot;ev-image&quot; src=&quot;images/deans-list.png&quot; alt=&quot;Dean's List award&quot;&gt;'">
+          <div class="icon">&#128196;</div>
+          Replace this box with:<br><code>images/deans-list.png</code>
+        </div>
+        <div class="ev-footer">
+          <span class="ev-status status-done">Completed</span>
+        </div>
+      </div>
+      <div class="ev-card">
+        <div class="ev-title">CompTIA Security+ — in progress</div>
+        <div class="ev-desc">Currently preparing for Security+ to formalise security knowledge gained through coursework and the IDS project.</div>
+        <div class="ev-footer">
+          <span class="ev-status status-ongoing">In progress</span>
+          <a class="btn btn-outline btn-sm" href="https://www.comptia.org/certifications/security" target="_blank">&#128279; Study now</a>
+        </div>
+      </div>
+      <div class="ev-card">
+        <div class="ev-title">IBM SkillsBuild — Cybersecurity Fundamentals</div>
+        <div class="ev-desc">Free IBM digital badge course covering core security concepts and IBM QRadar overview — natural next step given my prior IBM operational experience.</div>
+        <div class="ev-footer">
+          <span class="ev-status status-planned">Planned</span>
+          <a class="btn btn-outline btn-sm" href="https://skillsbuild.org" target="_blank">&#128279; Enrol</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION E -->
+  <div class="section tab-content" id="reflection">
+    <div class="sec-header">
+      <span class="sec-num">E</span>
+      <span class="sec-title">Personal reflection</span>
+    </div>
+    <div class="ibm-bar">
+      <div class="ibm-left">
+        <span class="ibm-logo">IBM</span>
+        <span class="ibm-role">Dream company · Target role: IT Support Analyst (Security-focused) → Network Security Analyst</span>
+      </div>
+      <a class="btn btn-primary btn-sm" href="https://www.ibm.com/careers/malaysia" target="_blank">&#128279; IBM Malaysia Careers</a>
+    </div>
+    <div class="card">
+      <div class="reflect-q">Why do you want to work for IBM?</div>
+      <div class="reflect-a">IBM is my dream company partly because I already have a personal connection to it — I worked as a Service Coordinator under the Telstra Interims IBM engagement, where I saw first-hand how IBM's operational systems (SIEBEL, MICA) run at scale to support global telecom clients. That experience gave me respect for IBM's structured, process-driven culture and its reputation in enterprise IT and security, including products like IBM QRadar and IBM Security Guardium. I want to return to IBM, this time in a technical IT support and security role, to build on the foundation I already started there and grow into the cybersecurity field through IBM's SkillsBuild and graduate development pathways.</div>
+
+      <div class="reflect-q">What value can you bring to IBM?</div>
+      <div class="reflect-a">I bring a rare combination: real operational experience inside an IBM-linked service environment, plus hands-on technical security skills from my diploma project (building an intrusion detection system with Snort, Wireshark, and UFW on Kali Linux). At Telstra Interims IBM, I managed end-to-end order lifecycles with high attention to detail and coordinated across teams to resolve discrepancies — the same discipline needed to manage IT tickets and security incidents. I am also fluent in English, Malay, Telugu, and Tamil, which is valuable for supporting IBM's multicultural Malaysian and regional teams.</div>
+
+      <div class="reflect-q">Why should IBM hire me?</div>
+      <div class="reflect-a">IBM should hire me because I am not approaching this as an outsider — I have already worked inside an IBM-affiliated operation and understand its systems and standards of accuracy. On top of that operational foundation, I am actively building genuine security skills: my Cybersecurity Essentials certification and my self-built intrusion detection project demonstrate that I go beyond coursework to apply what I learn. I am a Dean's List recipient, which reflects consistency and discipline. I am honest that I still need to build deeper skills in Active Directory, cloud security, and SIEM tools — and I already have a concrete plan (Security+, CCNA, AWS, IBM Cybersecurity Analyst cert) to close those gaps.</div>
+
+      <div class="reflect-q">What skills make me suitable for this role?</div>
+      <div class="reflect-a">My ticketing and incident-lifecycle experience from Telstra Interims IBM (SIEBEL and MICA systems) maps directly onto IT support ticketing tools like ServiceNow. My diploma project gave me practical experience with Snort, Wireshark, UFW firewall configuration, and Bash scripting on Kali Linux and Ubuntu — core tools for security monitoring. My customer service background from DHL Express and Telstra gives me strong communication skills for explaining technical issues to non-technical users, which is essential in IT support.</div>
+
+      <div class="reflect-q">What are your strengths and weaknesses?</div>
+      <div class="reflect-a"><strong>Strengths:</strong> I have real-world operational experience, not just academic theory — I understand how large organisations like IBM run service processes day to day. I am detail-oriented (proven through end-to-end order tracking at Telstra Interims IBM) and multilingual, which helps me communicate across diverse teams. I also follow through on self-directed projects, as shown by my intrusion detection system.<br><br><strong>Weaknesses:</strong> My hands-on security tool experience (Snort, Wireshark, UFW) is currently limited to lab/project environments rather than live enterprise networks. My Python skills are still basic compared to my Bash scripting, and I have not yet worked with enterprise identity systems like Active Directory or SIEM platforms like QRadar — both of which are part of my development plan.</div>
+
+      <div class="reflect-q">Why would a company choose to hire me over others?</div>
+      <div class="reflect-a">Most fresh graduates applying for IT support roles have only academic exposure. I have 1 year of real service operations experience inside systems used by IBM and DHL, combined with a self-driven cybersecurity project that goes beyond classroom requirements. I also bring proven consistency (Dean's List), genuine prior exposure to IBM's working culture, and a clear, realistic plan for closing my remaining skill gaps. For a company like IBM that values both operational reliability and continuous learning, that combination of real experience plus a structured growth plan makes me a lower-risk, higher-potential hire.</div>
+
+      <div class="btn-row" style="margin-top:1.5rem;border-top:1px solid #e0e0e0;padding-top:1rem">
+        <a class="btn btn-primary" href="https://www.ibm.com/careers/malaysia" target="_blank">&#128279; Apply at IBM Malaysia</a>
+        <a class="btn btn-outline" href="https://www.linkedin.com/company/ibm/" target="_blank">Follow IBM on LinkedIn</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">CSA30203 Special Topics in Computer Network Security · Individual E-Portfolio · 2025</div>
+
+</div>
+
+<button id="scrolltop" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="Full size photo">
+</div>
+
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+  }
+
+  function toggleContact() {
+    document.getElementById('contact-popup').classList.toggle('active');
+  }
+  document.addEventListener('click', (e) => {
+    const popup = document.getElementById('contact-popup');
+    if (!e.target.closest('#contact-popup') && !e.target.matches('.btn-outline')) {
+      popup.classList.remove('active');
+    }
+  });
+
+  function showTab(id) {
+    document.querySelectorAll('.tab-content').forEach(el => {
+      el.classList.toggle('active', el.id === id);
+    });
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tab === id);
+    });
+    window.scrollTo({top:0,behavior:'smooth'});
+    // re-animate skill bars when skills tab is shown
+    if (id === 'skills') {
+      document.querySelectorAll('#skills .skill-fill').forEach(el => {
+        el.style.width = '0';
+        setTimeout(() => { el.style.width = el.dataset.w; }, 50);
+      });
+    }
+  }
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.skill-fill').forEach(el => {
+        el.style.width = el.dataset.w;
+      });
+    }, 200);
+  });
+
+  const scrollBtn = document.getElementById('scrolltop');
+  window.addEventListener('scroll', () => {
+    scrollBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
+  });
+</script>
+</body>
+</html>
